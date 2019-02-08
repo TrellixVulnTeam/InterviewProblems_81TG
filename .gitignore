@@ -1,0 +1,18 @@
+# Ignore Play! working directory #
+.idea*
+logs
+project/project
+project/target
+target
+tmp
+.history
+dist
+*.iml
+.classpath
+.project
+.settings
+.DS_Store
+d
+*.rdb
+build-no.txt
+jmeter.log
