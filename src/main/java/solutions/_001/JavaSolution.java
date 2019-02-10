@@ -1,4 +1,4 @@
-package solutions._01;
+package solutions._001;
 
 public class JavaSolution {
 }
