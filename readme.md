@@ -10,10 +10,10 @@ questions in my current job.
 ### Problem Statement
 In the `/src/main/resources` directory you'll find the problem descriptions
 
-### Sample Template
+### Sample Templates
 In the `/src/main/java` `/src/main/javascript` and `/src/main/scala` you'll find a sample file to get started on the  problems.  These files were in the format used by hackerank.com
 
-### Solution 
+### Solutions 
 My solution for Problem 003 is in `/src/main/scala/solutions/_003` directory.  You get the idea
 
 ### Tests
