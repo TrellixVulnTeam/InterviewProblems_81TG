@@ -16,5 +16,5 @@ In the `/src/main/java` `/src/main/javascript` and `/src/main/scala` you'll find
 ### Solution 
 My solution for Problem 003 is in `/src/main/scala/solutions/_003` directory.  You get the idea
 
-#### Tests
+### Tests
 When possible I've added unit tests in `/src/main/tests`
