@@ -5,9 +5,9 @@ https://www.hackerrank.com and https://www.dailycodingproblem.com/
 that I have collected, for my own practice, and to use as  interview
 questions in my current job.
 
-## Format
+## Project Structure: 
 
-### Problem Statement
+### Problem Statements
 In the `/src/main/resources` directory you'll find the problem descriptions
 
 ### Sample Templates
