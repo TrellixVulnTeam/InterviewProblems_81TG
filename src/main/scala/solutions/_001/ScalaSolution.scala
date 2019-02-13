@@ -1,7 +1,5 @@
 package solutions._001
 
-import scala.annotation.tailrec
-
 object ScalaSolution {
 
   def main(args: Array[String]) {
