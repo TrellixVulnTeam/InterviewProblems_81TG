@@ -8,13 +8,16 @@ questions in my current job.
 ## Project Structure: 
 
 ### Problem Statements
-In the `/src/main/resources` directory you'll find the problem descriptions
+In the `/src/main/resources/problems` directory you'll find the problem descriptions
 
 ### Sample Templates
-In the `/src/main/java` `/src/main/javascript` and `/src/main/scala` you'll find a sample file to get started on the  problems.  These files were in the format used by hackerank.com
+In the `/src/main/java/templates` `/src/main/javascript/templates` and `/src/main/scala/templates`
+you'll find a sample file to get started on the problems (at  least in one of  these languages)
+
+These files were in the format used by hackerank.com
 
 ### Solutions 
-My solution for Problem 003 is in `/src/main/scala/solutions/_003` directory.  You get the idea
+My solutions for problems are in the `/src/main/{Language}/solutions/` directory.
 
 ### Tests
-When possible I've added unit tests in `/src/main/tests`
+When I have time I'll added unit tests in `/src/main/tests`

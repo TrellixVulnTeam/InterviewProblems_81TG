@@ -1,6 +1,6 @@
-package solutions._001
+package solutions
 
-object ScalaSolution {
+object ScalaSolution001 {
 
   def main(args: Array[String]) {
     val stdin = scala.io.StdIn
