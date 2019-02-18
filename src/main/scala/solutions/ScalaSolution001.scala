@@ -6,45 +6,41 @@ object ScalaSolution001 {
     val stdin = scala.io.StdIn
 
     val numberOfStairs = stdin.readLine.trim.toInt
-    val uniqueCombos = waysToClimbRecursive(numberOfStairs)
+    val uniqueWays = waysToClimbDynamic(numberOfStairs)
 
-    uniqueCombos.foreach(combo => println(s"${combo.mkString(",")}"))
+    println(s"For $numberOfStairs stairs there are $uniqueWays them")
   }
 
 
   /**
     *  Brute Force recursion --  works fine for  smallish values of n
     */
-  def waysToClimbRecursive(numberOfStairs: Int): Seq[Seq[Int]] = {
+  def waysToClimbRecursive(numberOfStairs: Int): Long = {
     assert(numberOfStairs > 0)
 
-    def waysToClimbHelper(acc: Seq[Seq[Int]], n: Int): Seq[Seq[Int]] = n match {
-      case m if m <= 0 => acc
-      case 1 => acc.map(_ ++ Seq(1))
-      case 2 => acc.map(_ ++ Seq(2)) ++ acc.map(_ ++ Seq(1, 1))
-      case _ => waysToClimbHelper(acc.map(_ ++ Seq(1)), n-1) ++ waysToClimbHelper(acc.map(_ ++ Seq(2)), n-2)
+    def waysToClimbHelper(n: Int): Long = n match {
+      case m if m<=1 => 1L
+      case _ => waysToClimbHelper(n-1) + waysToClimbHelper(n-2)
     }
 
-    waysToClimbHelper(Seq(Seq.empty), numberOfStairs)
+    waysToClimbHelper(numberOfStairs)
   }
 
   /**
     *  A better solutions is to use "Dynamic" Programming to store  previous results
     *  to avoid all the repeated calculations
     */
-
-  import collection.mutable.{Seq => mSeq}
-  def waysToClimbDynamic(numberOfStairs: Int): Seq[Seq[Int]] = {
+  def waysToClimbDynamic(numberOfStairs: Int): Long = {
     assert(numberOfStairs > 0)
 
-    val ways = collection.mutable.Map[Int, Seq[mSeq[Int]]]()
-    ways(0) = Seq(mSeq.empty)
-    ways(1) = Seq(mSeq(1))
-    ways(2) = Seq(mSeq(1, 1), mSeq(2))
+    val ways = collection.mutable.Map[Int, Long]()
+    ways(0) = 0L
+    ways(1) = 1L
+    ways(2) = 2L
 
     for {
       n <- 3 to numberOfStairs
-    } ways(n) = ways(n - 1).map(_ ++ mSeq(1)) ++ ways(n-2).map(_ ++ mSeq(2))
+    } ways(n) = ways(n - 1) + ways(n-2)
 
     ways(numberOfStairs)
   }
