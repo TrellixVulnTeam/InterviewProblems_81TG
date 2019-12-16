@@ -26,6 +26,11 @@ object ScalaSolution001 {
       ans
     }
 
+
+    /*
+    Brute force way would involve a nested iteration to check for every pair of numbers.
+    This would take O(N^2).
+     */
     def bruteForce2(input: Seq[Int]):Boolean = {
       for {
         i <- 0 until input.length - 1
@@ -35,6 +40,10 @@ object ScalaSolution001 {
       false
     }
 
+    /*
+    Another way is to use a set to remember the numbers we've seen so far. Then for a given number, we can check if
+    there is another number that, if added, would sum to k. This would be O(N) since lookups of sets are O(1) each.
+     */
     @tailrec
     def onePass(i: Seq[Int], buffer: Set[Int]):Boolean = i.headOption match {
       case None => false
