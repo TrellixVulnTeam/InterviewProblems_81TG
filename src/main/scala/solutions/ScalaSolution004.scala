@@ -1,6 +1,6 @@
 package solutions
 
-object ScalaSolution012 {
+object ScalaSolution004 {
 
   case class TimeMap() {
 

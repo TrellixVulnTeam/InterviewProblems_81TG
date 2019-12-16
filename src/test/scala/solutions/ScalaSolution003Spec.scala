@@ -1,9 +1,9 @@
 package solutions
 
 import org.scalatest._
-import ScalaSolution001._
+import ScalaSolution003._
 
-class ScalaSolution001Spec extends FlatSpec with Matchers {
+class ScalaSolution003Spec extends FlatSpec with Matchers {
 
   "The waysToClimbRecursive" should "at least work for small numbers" in {
 
@@ -34,6 +34,23 @@ class ScalaSolution001Spec extends FlatSpec with Matchers {
     assert(waysToClimbDynamic(5) === 8L)
     assert(waysToClimbDynamic(6) === 13L)
     assert(waysToClimbDynamic(100) === 1298777728820984005L)
+  }
+
+  "The waysToClimbBonus" should "work" in {
+
+    a [AssertionError] should be thrownBy {
+      waysToClimbBonus(0)
+    }
+
+    assert(waysToClimbBonus(1) === 1L)
+    assert(waysToClimbBonus(2) === 2L)
+    assert(waysToClimbBonus(4) === 5L)
+    assert(waysToClimbBonus(5) === 8L)
+    assert(waysToClimbBonus(6) === 13L)
+    assert(waysToClimbBonus(100) === 1298777728820984005L)
+
+    assert(waysToClimbBonus(10, Set(1)) === 1L)
+    assert(waysToClimbBonus(10, Set(2)) === 1L)
   }
 
 }

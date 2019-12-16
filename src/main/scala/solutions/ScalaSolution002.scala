@@ -1,14 +1,14 @@
 package solutions
 
 
-object ScalaSolution011 {
+object ScalaSolution002 {
 
   /*
   This is probably the best way to do it if you are allowed to use division
    */
-  def easyWay(i: Seq[Int]): Seq[Int] = {
-    val totalProduct = i.product
-    i.map(totalProduct/_)
+  def easyWay(input: Seq[Int]): Seq[Int] = {
+    val totalProduct = input.product
+    input.map(totalProduct/_)
   }
 
   /*

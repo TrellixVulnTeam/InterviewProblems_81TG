@@ -1,50 +1,54 @@
 package solutions
 
+import scala.annotation.tailrec
+
 object ScalaSolution001 {
 
+
   def main(args: Array[String]) {
-    val stdin = scala.io.StdIn
+    val k = 17
+    val input = Seq(10, 15, 3, 7)
 
-    val numberOfStairs = stdin.readLine.trim.toInt
-    val uniqueWays = waysToClimbDynamic(numberOfStairs)
+    def bruteForce(input: Seq[Int]):Boolean = {
+      val len = input.length
+      var ans = false
+      var i = 0
+      var j = 1
 
-    println(s"For $numberOfStairs stairs there are $uniqueWays them")
-  }
-
-
-  /**
-    *  Brute Force recursion --  works fine for  smallish values of n
-    */
-  def waysToClimbRecursive(numberOfStairs: Int): Long = {
-    assert(numberOfStairs > 0)
-
-    def waysToClimbHelper(n: Int): Long = n match {
-      case m if m<=1 => 1L
-      case _ => waysToClimbHelper(n-1) + waysToClimbHelper(n-2)
+      while(i < len && j < len && !ans) {
+        if (input(i) + input(j) == k)
+          ans = true
+        else {
+          i += 1
+          j += 2
+        }
+      }
+      ans
     }
 
-    waysToClimbHelper(numberOfStairs)
+    def bruteForce2(input: Seq[Int]):Boolean = {
+      for {
+        i <- 0 until input.length - 1
+        j <- i + 1 until input.length
+      } if (input(i) + input(j) == k) return true
+
+      false
+    }
+
+    @tailrec
+    def onePass(i: Seq[Int], buffer: Set[Int]):Boolean = i.headOption match {
+      case None => false
+      case Some(n) =>
+        if(buffer.contains(k-n))
+          true
+        else
+          onePass(i.tail, buffer + n)
+    }
+
+    val ans1:Boolean = bruteForce2(input)
+    println(s"Answer is $ans1")
+
+    val ans2:Boolean = onePass(input, Set.empty[Int])
+    println(s"Answer is $ans2")
   }
-
-  /**
-    *  A better solutions is to use "Dynamic" Programming to store  previous results
-    *  to avoid all the repeated calculations
-    */
-  def waysToClimbDynamic(numberOfStairs: Int): Long = {
-    assert(numberOfStairs > 0)
-
-    val ways = collection.mutable.Map[Int, Long]()
-    ways(0) = 0L
-    ways(1) = 1L
-    ways(2) = 2L
-
-    for {
-      n <- 3 to numberOfStairs
-    } ways(n) = ways(n - 1) + ways(n-2)
-
-    ways(numberOfStairs)
-  }
-
 }
-
-
