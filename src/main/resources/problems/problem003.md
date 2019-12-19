@@ -1,17 +1,21 @@
-# Problem 001:
+# Problem 002:
+This problem was asked by Google.
 
-There's a staircase with N steps, and you can climb 1 or 2 steps at a time. Given N, write a function that returns the number of unique ways you can climb the staircase. The order of the steps matters.
+Given the root to a binary tree, implement serialize(root), which serializes the tree into a string, and deserialize(s), which deserializes the string back into the tree.
 
-For example, if N is 4, then there are 5 unique ways:
+For example, given the following Node class
 
+```javascript
+class Node:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 ```
-1, 1, 1, 1
-1, 1, 2
-1, 2, 1
-2, 1, 1
-2, 2
+
+The following test should pass:
+
+```javascript
+node = Node('root', Node('left', Node('left.left')), Node('right'))
+assert deserialize(serialize(node)).left.left.val == 'left.left'
 ```
-
-
-## Bonus:
-What if, instead of being able to climb 1 or 2 steps at a time, you could climb any number from a set of positive integers X? For example, if X = {1, 3, 5}, you could climb 1, 3, or 5 steps at a time. Generalize your function to take in X.
