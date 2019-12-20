@@ -17,19 +17,20 @@ object ScalaSolution003 {
   }
 
   def deserialize(serialized:String): Tree = {
-    helper(serialized.split(' ').toList)
+    var tokens: List[String] = serialized.split(' ').toList
 
-    def helper(s: List[String]): Tree = {
-      //println(s"DEBUG: ${s.mkString(" ")}")
-      s match {
-        case List("#") => Leaf
+    def helper(): Tree = {
+      //println(s"DEBUG: ${tokens.mkString(" ")}")
+      tokens match {
+        case List("#") =>
+          Leaf
         case n :: ns =>
-          val left = helper(ns)
-
+          tokens = ns
+          if(n != "#") Node(n, helper(), helper()) else Leaf
       }
     }
 
-
+    helper()
   }
 
   def main(args: Array[String]): Unit = {
