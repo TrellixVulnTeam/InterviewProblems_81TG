@@ -2,42 +2,58 @@ package solutions
 
 object ScalaSolution004 {
 
-  case class TimeMap() {
 
-    private var internalMap = Map.empty[Int, Seq[(Int, Int)]]
+  /**
+    * This meets the runtime requirement O(n)
+    * But it use O(n) space
+    */
+  def easyWay(i: Array[Int]): Int = {
+    val s = i.toSet
+    var missingInt = 1
+    while(s.contains(missingInt)) missingInt +=1
+    missingInt
+  }
 
-    def set(key: Int, value: Int, time: Int): Unit = {
-      if(internalMap.isDefinedAt(key)) {
-        val timeValues = (internalMap(key).filter(_._1 != time) ++ Seq(Tuple2(time, value)).sortBy(_._1))
-        internalMap -= key
-        internalMap += (key -> timeValues)
+  def hardWay(i: Array[Int]): Int = {
+    var missingIndex = 0
+    def missingInt = missingIndex+1
+
+    while(missingIndex < i.length) {
+      if (i(missingIndex) == missingInt) {
+        missingIndex += 1
       } else {
-        internalMap += (key -> Seq((time, value)))
+        val index = i.indexWhere(_ == missingInt)
+        if(index != -1) {
+          i(index) = i(missingIndex)
+          i(missingIndex) = missingInt
+          missingIndex += 1
+        }
+        else return missingInt
       }
     }
-
-    def get(key: Int, time: Int): Option[Int] = {
-      internalMap.get(key) match {
-        case None => None
-        case Some(values) => values.filter(_._1 <= time).lastOption.map(_._2)
-      }
-    }
+    missingInt
   }
 
   def main(args: Array[String]): Unit = {
+    val input1 = Array[Int](3, 4, -1, 1)
+    val ans1 = 2
 
-    val test1 = TimeMap()
+    val input2 = Array[Int](1, 2, 0)
+    val ans2 = 3
 
-    test1.set(1, 1, 0)    // set key 1 to value 1 at time 0
-    test1.set(1, 2, 2)    // set key 1 to value 2 at time 2
-    assert(test1.get(1, 1).contains(1))   // get key 1 at time 1 should be 1
-    assert(test1.get(1, 3).contains(2))   // get key 1 at time 3 should be 2
+    val input3 = Array[Int](1, 2, 0, 5, 3, 3, -1, 6)
+    val ans3 = 4
 
-    val test2 = TimeMap()
 
-    test2.set(1, 1, 5)               //set key 1 to value 1 at time 5
-    assert(test2.get(1, 0).isEmpty)         //get key 1 at time 0 should be null
-    assert(test2.get(1, 10).contains(1))   //get key 1 at time 10 should be 1
+    val ans1b = hardWay(input1)
+    val ans2b = hardWay(input2)
+    val ans3b = hardWay(input3)
+    println(s"Hard way answer is: ${ans1b}")
+    println(s"Hard way answer is: ${ans2b}")
+    println(s"Hard way answer is: ${ans3b}")
+    assert(ans1b == ans1)
+    assert(ans2b == ans2)
+    assert(ans3b == ans3)
 
   }
 
