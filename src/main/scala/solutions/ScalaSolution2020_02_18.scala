@@ -71,5 +71,67 @@ object ScalaSolution2020_02_18 extends  App {
       var x: Int = _x
     }
 
-    def rotateRight(head: ListNode, k: Int): ListNode = ???
+    def displayList(head: ListNode): Unit = {
+      @scala.annotation.tailrec
+      def displayHelper(l:ListNode, acc: String): String = if(l.next == null)
+        s"$acc, ${l.x}"
+      else
+        if(acc.length > 0)
+        displayHelper(l.next, s"$acc, ${l.x}")
+        else
+        displayHelper(l.next, s"${l.x}")
+
+      println(s"[${displayHelper(head, "")}]")
+    }
+
+    def createList(data: Seq[Int]): ListNode = {
+
+      val head = new ListNode(data.head)
+      var current = head
+      data.tail.foreach{ d =>
+        val nextNode = new ListNode(d)
+        current.next = nextNode
+        current = nextNode
+      }
+      head
+    }
+
+    def findLength(head: ListNode): Int = {
+
+      @scala.annotation.tailrec
+      def lengthHelper(current: ListNode, acc: Int): Int =
+        if (current.next == null)
+          acc
+        else lengthHelper(current.next, acc+1)
+
+      if(head == null)
+        0
+      else lengthHelper(head, 1)
+    }
+
+    def rotateRight(head: ListNode, k: Int): ListNode = {
+      val length = findLength(head)
+      val places = k % length  // no point in going longer than the length of the list!
+      val start = head
+
+      @scala.annotation.tailrec
+      def moveAhead(c:ListNode, n:Int):ListNode = if(n == 0) c else moveAhead(c.next, n-1)
+      val newStart = moveAhead(head, places)
+      val newEnd = moveAhead(newStart, length-places-1)
+      val terminateOldStart = moveAhead(start, places-1)
+      terminateOldStart.next = null
+      newEnd.next = start
+      newStart
+
+    }
+
+    val test1 = createList( Seq(7,7,3,5))
+    displayList(test1)
+    val test1Rotated = rotateRight(test1, 2)
+    displayList(test1Rotated)
+
+    val test2 = createList( Seq(1,2,3,4,5))
+    displayList(test2)
+    val test2Rotated = rotateRight(test2, 3)
+    displayList(test2Rotated)
   }
