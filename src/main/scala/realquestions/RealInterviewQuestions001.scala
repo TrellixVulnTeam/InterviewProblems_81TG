@@ -9,12 +9,15 @@ Asked by Tubi
 import scala.io.Source
 import scala.util.{Failure, Success, Try}
 
-object RealInterviewQuestions001 {
+/*
+old school loop over lines of the file
+ */
+object RealInterviewQuestions001Solution1 extends App {
 
-  case  class MovieRecord(name: String, runtime: Double, rating: Double)
+  case class MovieRecord(name: String, runtime: Double, rating: Double)
 
   case object MovieRecord {
-    def apply(a: Array[String]): MovieRecord = new MovieRecord(a(0), a(1).toDouble,  a(2).toDouble)
+    def apply(a: Array[String]): MovieRecord = new MovieRecord(a(0), a(1).toDouble, a(2).toDouble)
   }
 
   def makeNewTopTen(rawData: Array[String], currentTopTen: Seq[MovieRecord]): Seq[MovieRecord] = {
@@ -30,23 +33,44 @@ object RealInterviewQuestions001 {
     }
   }
 
+  val url = "https://gist.githubusercontent.com/CatTail/18695526bd1adcc21219335f23ea5bea/raw/54045ceeae6a508dec86330c072c43be559c233b/movies.csv"
 
+  val rawData = Source.fromURL(url)
 
-  def main(args: Array[String]) {
+  var topTen = Seq.empty[MovieRecord]
 
-    val url = "https://gist.githubusercontent.com/CatTail/18695526bd1adcc21219335f23ea5bea/raw/54045ceeae6a508dec86330c072c43be559c233b/movies.csv"
-
-    val rawData = Source.fromURL(url)
-
-    var topTen = Seq.empty[MovieRecord]
-
-    rawData.getLines().foreach{ l =>
-      val splitLine = l.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)")  //handle , inside of quotes!
-      topTen = makeNewTopTen(splitLine, topTen)
-    }
-
-    println("The top ten is:\n" + topTen.mkString("\n"))
+  rawData.getLines().foreach { l =>
+    val splitLine = l.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)") //handle , inside of quotes!
+    topTen = makeNewTopTen(splitLine, topTen)
   }
 
+  println("The top ten is:\n" + topTen.mkString("\n"))
 }
+
+
+/*
+use streams to solve it
+ */
+object RealInterviewQuestions001Solution2 extends App {
+
+  case class MovieRecord(name: String, runtime: Double, rating: Double)
+
+  def getMovieRecord(s: String): MovieRecord = {
+    val dataArray: Array[String] = s.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)")
+    MovieRecord(name = dataArray(0), runtime= dataArray(1).toDouble, rating = dataArray(2).toDouble)
+  }
+
+  def getMovieDataStream: Stream[MovieRecord] = {
+    val dataUrl = "https://gist.githubusercontent.com/CatTail/18695526bd1adcc21219335f23ea5bea/raw/54045ceeae6a508dec86330c072c43be559c233b/movies.csv"
+    val src = Source.fromURL(dataUrl)
+    src.getLines().toStream.drop(1).map(getMovieRecord) append {src.close; Stream.empty}
+  }
+
+  val topTen = getMovieDataStream.sortWith(_.rating > _.rating).take(10)
+
+  topTen.foreach(println)
+}
+
+
+
 
