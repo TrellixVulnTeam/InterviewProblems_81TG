@@ -1,13 +1,15 @@
 package realquestions
 
-import org.scalatest.FlatSpec
-import org.scalatest.Matchers._
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers.convertToAnyShouldWrapper
 import realquestions.RealInterviewQuestions002._
+
+
 /*
     Implement the mean, median, mode and range methods in Java 8 Functional
     style with the minimum code necessary to pass the tests.
  */
-class RealInterviewQuestions002Specs extends FlatSpec {
+class RealInterviewQuestions002Specs extends AnyFlatSpec {
   "A range " should "have a value of 14" in {
     assert(14 === range(Seq(3, 17, 15, 11, 9)))
   }

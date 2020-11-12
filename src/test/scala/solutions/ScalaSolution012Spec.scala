@@ -1,9 +1,10 @@
 package solutions
 
-import org.scalatest._
 import ScalaSolution012._
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class ScalaSolution012Spec extends FlatSpec with Matchers {
+class ScalaSolution012Spec extends AnyFlatSpec with Matchers {
 
   "The waysToClimbRecursive" should "at least work for small numbers" in {
 

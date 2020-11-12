@@ -16,3 +16,4 @@ d
 *.rdb
 build-no.txt
 jmeter.log
+.bsp/sbt.json
