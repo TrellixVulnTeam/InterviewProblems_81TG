@@ -2,7 +2,6 @@ package realquestions
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.convertToAnyShouldWrapper
-import realquestions.RealInterviewQuestions002._
 
 
 /*

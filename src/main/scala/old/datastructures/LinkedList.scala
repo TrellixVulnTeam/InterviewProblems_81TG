@@ -1,4 +1,4 @@
-package datastructures
+package old.realquestions.datastructures
 
 trait LinkedList {
   def head():Int

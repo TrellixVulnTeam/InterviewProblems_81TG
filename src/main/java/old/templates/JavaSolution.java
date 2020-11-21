@@ -1,4 +1,4 @@
-package templates;
+package old.templates;
 
 import java.io.*;
 import java.util.*;
