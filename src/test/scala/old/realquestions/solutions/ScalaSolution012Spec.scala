@@ -1,8 +1,8 @@
-package solutions
+package old.realquestions.solutions
 
-import ScalaSolution012._
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import solutions.ScalaSolution012._
 
 class ScalaSolution012Spec extends AnyFlatSpec with Matchers {
 
