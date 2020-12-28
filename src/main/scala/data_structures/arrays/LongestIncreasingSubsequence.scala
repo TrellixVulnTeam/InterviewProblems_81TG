@@ -14,60 +14,61 @@ changing the order of the remaining elements. For example, [3,6,2,7] is a subseq
 
 object  LongestIncreasingSubsequence extends App {
 
+  def LISHelper(s: Array[Int]): Array[Int] = {
+    case class PileEntry(element: Int, prevPileEntry: Option[PileEntry])
+    type Pile = Stack[PileEntry]
 
-  case class PileEntry(element: Int, prevPileEntry: Option[PileEntry])
-  type Pile = Stack[PileEntry]
+    val piles = ListBuffer.empty[Stack[PileEntry]]
+
+    def previousPile(currentPile: Pile): Option[Pile] = {
+      if (piles.length > 1) {
+        var prevPile = piles.head
+        for (pile <- piles.tail) {
+          if (pile.top.element == currentPile.top.element) {
+            return Some(prevPile)
+          }
+
+          prevPile = pile
+        }
+      }
+
+      None
+    }
+
+    for (i <- 0 until s.length) {
+      val toAddPile = piles.find(p => p.top.element >= s(i))
+
+      toAddPile match {
+        case Some(p) => {
+          val prev = previousPile(p)
+          prev match {
+            case Some(pp) => p.push(PileEntry(s(i), Some(pp.top)))
+            case None => p.push(PileEntry(s(i), None))
+          }
+        }
+        case None => {
+          val prev = if (piles.isEmpty) None else Some(piles.last.top)
+          piles += Stack(PileEntry(s(i), prev))
+        }
+      }
+    }
+
+    // Building LIS by backtracking
+    val subSeq = ListBuffer.empty[Int]
+    var lastPileEntry: Option[PileEntry] = Some(piles.last.top)
+    while (lastPileEntry != None) {
+      subSeq += lastPileEntry.get.element
+      lastPileEntry = lastPileEntry.get.prevPileEntry
+    }
+
+    subSeq.reverse.toArray
+  }
 
   def findLIS(s: Array[Int]): Array[Int] = {
-    val inputLength = s.length
-
-    if (inputLength < 2) s
-    else {
-      val piles = ListBuffer.empty[Stack[PileEntry]]
-
-      def previousPile(currentPile: Pile): Option[Pile] = {
-        if (piles.length > 1) {
-          var prevPile = piles.head
-          for (pile <- piles.tail) {
-            if (pile.top.element == currentPile.top.element) {
-              return Some(prevPile)
-            }
-
-            prevPile = pile
-          }
-        }
-
-        None
-      }
-
-      for (i <- 0 until inputLength) {
-        val toAddPile = piles.find(p => p.top.element >= s(i))
-
-        toAddPile match {
-          case Some(p) => {
-            val prev = previousPile(p)
-            prev match {
-              case Some(pp) => p.push(PileEntry(s(i), Some(pp.top)))
-              case None => p.push(PileEntry(s(i), None))
-            }
-          }
-          case None => {
-            val prev = if (piles.isEmpty) None else Some(piles.last.top)
-            piles += Stack(PileEntry(s(i), prev))
-          }
-        }
-      }
-
-      // Building LIS by backtracking
-      val subSeq = ListBuffer.empty[Int]
-      var lastPileEntry: Option[PileEntry] = Some(piles.last.top)
-      while (lastPileEntry != None) {
-        subSeq += lastPileEntry.get.element
-        lastPileEntry = lastPileEntry.get.prevPileEntry
-      }
-
-      subSeq.reverse.toArray
-    }
+    if(s.length < 2)
+      s
+    else
+      LISHelper(s)
   }
 
   val test1 = Array(1,4,3)
