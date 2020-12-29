@@ -4,7 +4,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 
 class Problem01_02Specs extends AnyFlatSpec {
 
-  "Find the smallest sorting Window" should "for given test cases" in {
+  "Find the smallest sorting Window" should "work for given test cases" in {
 
     val input1 = Array(3,7,5,6,9)
 
