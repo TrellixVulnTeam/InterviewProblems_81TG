@@ -53,8 +53,9 @@ class Problem01_04Specs extends AnyFlatSpec {
   }
 
   "Given our assumptions findSmallerToRightScala" should "be faster than findSmallerToRightJava" in {
-    val testLength = 500000
-    val testData = Array.fill(testLength)(Random.nextInt)
+    val random = new Random(System.nanoTime())
+    val testLength = 100000
+    val testData = Array.fill(testLength)(random.nextInt)
 
     val javaStartTime = System.nanoTime()
     val javaAnswer = findSmallerToRightJava(testData)
@@ -66,6 +67,7 @@ class Problem01_04Specs extends AnyFlatSpec {
 
     assert(javaAnswer === optimizedAnswer)
     assert(optimizedTotalTime < javaTotalTime)
+    // it will be tons faster than the brute force of course!
     println(s"Speed-up: ${(javaTotalTime*1.0)/optimizedTotalTime}")
   }
 
