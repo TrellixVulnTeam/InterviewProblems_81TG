@@ -2,6 +2,8 @@ package data_structures.arrays
 
 import scala.collection.mutable
 
+// see https://leetcode.com/problems/count-of-smaller-numbers-after-self/submissions/
+
 object Problem01_04  extends App {
 
   def bruteForce(arr: Array[Int]): Array[Int] = {
@@ -9,7 +11,9 @@ object Problem01_04  extends App {
     val answer = new Array[Int](length)
 
     // Here is the Brute Force Solution: space O(n), time O(n^2)
-    arr.indices.foreach(i =>  answer(i) = arr.slice(i + 1, length).filter(e => e < arr(i)).length)
+    arr.indices.foreach { i =>
+      answer(i) = arr.slice(i + 1, length).count(e => e < arr(i))
+    }
     answer
 }
 
@@ -23,9 +27,10 @@ object Problem01_04  extends App {
     // Here is a better solution.
     var sorted = Array.emptyIntArray
 
-    Range(length-2, -1, -1).foreach{i =>
-      sorted = (arr(i+1) +: sorted).sorted
-      answer(i) = -1*java.util.Arrays.binarySearch(sorted, arr(i)) -1
+    Range(length-1, -1, -1).foreach{i =>
+      val index = java.util.Arrays.binarySearch(sorted, arr(i))
+      sorted = (arr(i) +: sorted).sorted
+      answer(i) = if(index < 0) -1*index -1 else index
     }
 
     answer
