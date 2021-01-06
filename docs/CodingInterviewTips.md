@@ -2,8 +2,8 @@
 (this guide is from [Facebook's Interview Guide and Coding Tips page](https://www.facebookrecruiting.com/portal/interview_prep_hub)
 
 ## Table of Contents
-1. [What Interviewers Look for](#What Interviewers Look for:)
-2. [Tips for the Coding Interview](#Tips for the Coding Interview:)
+1. [What Interviewers Look for](#what-interviewers-look-for)
+2. [Tips for the Coding Interview](#tips-for-the-coding-interview)
 
 ## What Interviewers Look for:
 
