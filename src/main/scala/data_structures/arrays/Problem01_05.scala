@@ -1,11 +1,12 @@
 package data_structures.arrays
 
-object PairSums extends App {
+object Problem1_05 extends App {
 
   def bruteForce(n: Int, arr: Array[Int], k: Int) : Int = {
     val correctSum = for {
       i <- arr.indices
       j <- i+1 until n if arr(i) + arr(j) == k
+
     } yield (i, j)
 
     correctSum.length
