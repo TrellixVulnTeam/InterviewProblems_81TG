@@ -22,12 +22,12 @@ object PairSums extends App {
     arr.indices.foreach{i =>
       val compliment = k - arr(i)
       val count = valueMap.getOrElse(compliment, 0)
-      if(compliment == arr(i) && count > 1) {
-        valueMap.update(arr(i), valueMap(arr(i)) - 1)
-        ways += 1
-      } else if(compliment != arr(i) && count > 0) {
-        valueMap.update(arr(i), count-1)
-        ways += 1
+      if(count > 0) {
+        if(compliment != arr(i))
+          ways += count
+        else
+          ways += (count-1)
+        valueMap.update(arr(i), valueMap(arr(i)) -1)
       }
     }
 
