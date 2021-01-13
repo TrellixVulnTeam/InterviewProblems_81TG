@@ -20,7 +20,7 @@ object Problem01_08 extends App {
       true
 
   def combineIntervals(l: Array[Int], r: Array[Int]): Array[Int] =
-    Array[Int](Math.min(l(0), r(1)), Math.max(l(1), r(1)))
+    Array[Int](Math.min(l(0), r(0)), Math.max(l(1), r(1)))
 
   def distance(interval: Array[Int]): Int =
     interval(1) - interval(0)
